@@ -18,9 +18,15 @@ public abstract class GameObject {
 
     public GameObject() {
         // Set default parameters for debugging
-        setLocation(new Location());
+        location = new Location();
         color = ColorUtil.YELLOW;
         size = 100;
+    }
+    
+    public GameObject(Location location, int color, int size) {
+        this.location = location;
+        this.color = color;
+        this.size = size;   
     }
 
     public int getSize() {

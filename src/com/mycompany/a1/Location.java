@@ -2,41 +2,40 @@ package com.mycompany.a1;
 
 import java.util.Random;
 
+import com.codename1.ui.geom.Point2D;
+
 /**
  * Location class that holds location values and includes location utility methods
  * @author Kyle Szombathy
  */
-public class Location {
+public class Location extends Point2D{
     public static final double WORLD_MIN_X = 0;
     public static final double WORLD_MIN_Y = 0;
     public static final double WORLD_MAX_X = 1024;
     public static final double WORLD_MAX_Y = 768;
-    private double xLocation;
-    private double yLocation;
     
     public Location() {
-        setRandomLocation();
+        super(0,0); // Create placeholder object
+        setRandomLocation(); // Fill it with random values
     }
 
-    public Location(double xLocation, double yLocation) {
-        this.xLocation = xLocation;
-        this.yLocation = yLocation;
+    public Location(double x, double y) {
+        super(x, y);
     }
     
     /**
      * Set location giving x and y vals
-     * @param xLocation Double value between 0 and WORLD_MAX_X
-     * @param yLocation Double value between 0 and WORLD_MAX_Y
+     * @param x Double value between 0 and WORLD_MAX_X
+     * @param y Double value between 0 and WORLD_MAX_Y
      */
-    public void setLocation(double xLocation, double yLocation) {
-        setXLocation(xLocation);
-        setYLocation(yLocation);
+    public void setLocation(double x, double y) {
+        setX(x);
     }
     
     /** Sets a random location for x and y */
     public void setRandomLocation() {
-        xLocation = getRandomDoubleRounded(WORLD_MIN_X, WORLD_MAX_X);
-        yLocation = getRandomDoubleRounded(WORLD_MIN_Y, WORLD_MAX_Y);
+        setX(getRandomDoubleRounded(WORLD_MIN_X, WORLD_MAX_X));
+        setY(getRandomDoubleRounded(WORLD_MIN_Y, WORLD_MAX_Y));
     }
     
     /**
@@ -59,24 +58,28 @@ public class Location {
     private double roundDoubleTo10sPlace(double input) {
         return Math.round(input*10.0)/10.0;
     }
-
-    public double getXLocation() {
-        return xLocation;
+    
+    @Override
+    public double getX() {
+        return super.getX();
     }
 
-    public void setXLocation(double xLocation) {
-        if(xLocation > WORLD_MIN_X && xLocation < WORLD_MAX_X) {
-            this.xLocation = xLocation;
+    @Override
+    public double getY() {
+        return super.getY();
+    }
+
+    @Override
+    public void setX(double x) {
+        if(x > WORLD_MIN_X && x < WORLD_MAX_X) {
+            super.setX(x);
         }
     }
 
-    public double getYLocation() {
-        return yLocation;
-    }
-
-    public void setYLocation(double yLocation) {
-        if(yLocation > WORLD_MIN_Y && yLocation < WORLD_MAX_X) {
-            this.yLocation = yLocation;
+    @Override
+    public void setY(double y) {
+        if(y > WORLD_MIN_Y && y < WORLD_MAX_X) {
+            super.setY(y);
         }
     }
 }
