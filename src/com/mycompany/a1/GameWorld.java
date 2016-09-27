@@ -1,7 +1,12 @@
 package com.mycompany.a1;
 
+/**
+ * Class that holds a collection of game objects and other state variables
+ * 
+ * @author Kyle Szombathy
+ */
 public class GameWorld {
-    
+
     public void init() {
         // TODO: code here to create the initial game objects/layout
     }
@@ -78,7 +83,7 @@ public class GameWorld {
         openDoor();
         updateScore();
     }
-    
+
     private void openDoor() {
         // TODO Auto-generated method stub
 
@@ -119,7 +124,7 @@ public class GameWorld {
 
     }
 
-    /**Print a “map” showing the current world state*/
+    /** Print a “map” showing the current world state */
     public void printMap() {
         // TODO Auto-generated method stub
 
@@ -128,6 +133,7 @@ public class GameWorld {
     /**
      * Exit, by calling the method System.exit(0) to terminate the program.
      * Confirm by prompting for Y/N
+     * 
      * @param firstChar
      */
     public void exitGame(char firstChar) {
