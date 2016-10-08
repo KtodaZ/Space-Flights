@@ -4,19 +4,18 @@
 package com.mycompany.a1;
 
 /**
+ * For objects that move
  * @author Kyle Szombathy
- *
  */
-public interface IMovingObject {
+public interface IMoving {
     
     public void move();
     
     public int getSpeed();
     
-    public int setSpeed(int speed);
+    public void setSpeed(int speed);
     
     public int getDirection();
     
-    public int setDirection(int direciton);
-    
+    public void setDirection(int direciton);   
 }

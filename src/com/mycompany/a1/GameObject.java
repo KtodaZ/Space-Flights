@@ -8,25 +8,41 @@ import com.codename1.charts.util.ColorUtil;
  * @author Kyle Szombathy
  */
 public abstract class GameObject {
+    private static final String NAME = "GameObject";
+    private static final int GAMEOBJECT_DEFAULT_COLOR = ColorUtil.YELLOW;
+    private static final int GAMEOBJECT_DEFAULT_SIZE = 100;
     private int size, color;
-    private Location location;
+    private Location objCenter;
 
-    /*
-     * Note: the methods here could be abstract but I chose to leave them as is
-     * for sake of having default methods.
-     */
-
+    // ============ Constructors ============
     public GameObject() {
         // Set default parameters for debugging
-        location = new Location();
-        color = ColorUtil.YELLOW;
-        size = 100;
+        objCenter = new Location(); // Set random location
+        color = GAMEOBJECT_DEFAULT_COLOR;
+        size = GAMEOBJECT_DEFAULT_SIZE;
     }
-    
-    public GameObject(Location location, int color, int size) {
-        this.location = location;
+
+    public GameObject(int size, int color) {
+        objCenter = new Location(); // Set random location
+        this.size = size;
         this.color = color;
-        this.size = size;   
+    }
+
+    public GameObject(int size, int color, Location location) {
+        objCenter = location;
+        this.size = size;
+        this.color = color;
+    }
+
+    public GameObject(Location location, int size, int color) {
+        this.objCenter = location;
+        this.size = size;
+        this.color = color;
+    }
+
+    // ============ Getters / Setters ============
+    public String getName() {
+        return NAME;
     }
 
     public int getSize() {
@@ -36,6 +52,8 @@ public abstract class GameObject {
     public void setSize(int size) {
         if (size > 0) {
             this.size = size;
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -43,23 +61,55 @@ public abstract class GameObject {
         return color;
     }
 
-    /**
-     * Set color
-     * @param color An int value defined by ColorUtil.[ColorName]
-     */
     public void setColor(int color) {
         this.color = color;
     }
 
     public Location getLocation() {
-        return location;
+        return objCenter;
     }
 
     public void setLocation(Location location) {
-        this.location = location;
+        this.objCenter = location;
     }
-    
+
     public void setLocation(double xLocation, double yLocation) {
-        location.setLocation(xLocation, yLocation);
+        objCenter.setLocation(xLocation, yLocation);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        // Location
+        sb.append(getLocation().toString());
+        // Color
+        sb.append(" color:[");
+        sb.append(ColorUtil.red(color));
+        sb.append(", ");
+        sb.append(ColorUtil.green(color));
+        sb.append(", ");
+        sb.append(ColorUtil.blue(color));
+        sb.append("] ");
+        // Size
+        sb.append("size=");
+        sb.append(getSize());
+        return sb.toString();
+    }
+
+    // ============ Utilities ============
+    /** Check if a location is within the bounds of this object */
+    public boolean isLocationWithinBoundaries(Location location) {
+        double sizeDbl = (double) this.size;
+        double rightBoundary, leftBoundary, topBoundary, bottomBoundary;
+        rightBoundary = objCenter.getX() + sizeDbl;
+        leftBoundary = objCenter.getX() - sizeDbl;
+        topBoundary = objCenter.getY() + sizeDbl;
+        bottomBoundary = objCenter.getY() - sizeDbl;
+
+        if (location.getX() < rightBoundary && location.getX() > leftBoundary && location.getY() < topBoundary
+                && location.getY() > bottomBoundary) {
+            return true;
+        }
+        return false;
     }
 }
