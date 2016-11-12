@@ -1,4 +1,6 @@
-package com.mycompany.a1;
+package com.mycompany.a2;
+
+import java.io.UnsupportedEncodingException;
 
 import com.codename1.charts.util.ColorUtil;
 
@@ -18,17 +20,18 @@ public class Spaceship extends Rescuer {
     private static final int SPACESHIP_DEFAULT_DOOR_EXPAND = 20;
     private static final int SPACESHIP_DEFAULT_DOOR_CONTRACT = -20;
 
-    // ============ Constructors ============
-    public Spaceship() {
+    // ============ Singleton Constructors ============
+    
+    private static Spaceship spaceship;
+
+    public static Spaceship getSpaceship() {
+        if (spaceship == null)
+            spaceship = new Spaceship();
+        return spaceship;
+    }
+    
+    private Spaceship() {
         super(SPACESHIP_DEFAULT_SIZE, SPACESHIP_DEFAULT_COLOR);
-    }
-
-    public Spaceship(int doorSize) {
-        super(doorSize, SPACESHIP_DEFAULT_COLOR);
-    }
-
-    public Spaceship(int doorSize, int color) {
-        super(doorSize, color);
     }
 
     // ============ Getters/Setters ============
@@ -64,7 +67,7 @@ public class Spaceship extends Rescuer {
         expandContractDoor(SPACESHIP_DEFAULT_DOOR_CONTRACT);
     }
 
-    public void contractDoor(int contractBy) {
+    public void contractDoor(int contractBy) throws UnsupportedEncodingException {
         if (contractBy > 0) {
             contractBy = contractBy * -1;
         }

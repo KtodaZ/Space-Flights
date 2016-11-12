@@ -44,7 +44,7 @@
 
     -->
 
-<project name="A1Prj" basedir=".">
+<project name="A2Prj" basedir=".">
 	<description>Builds, tests, and runs the project CodenameOne111.</description>
 	<property file="codenameone_settings.properties" />
 	<property file="build.props" />

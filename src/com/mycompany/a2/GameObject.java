@@ -1,4 +1,6 @@
-package com.mycompany.a1;
+package com.mycompany.a2;
+
+import java.io.UnsupportedEncodingException;
 
 import com.codename1.charts.util.ColorUtil;
 
@@ -49,6 +51,11 @@ public abstract class GameObject {
         return size;
     }
 
+    /**
+     * Set the size of the object
+     * @param size The size you want the object to be.
+     * @throws UnsupportedEncodingException if the operation is not supported
+     */
     public void setSize(int size) {
         if (size > 0) {
             this.size = size;
@@ -61,6 +68,12 @@ public abstract class GameObject {
         return color;
     }
 
+    /**
+     * Set the color of the object. Use ColorUtil.[color]
+     * 
+     * @param color the color of the object. Use ColorUtil.[color]
+     * @throws UnsupportedEncodingException if the operation is not supported
+     */
     public void setColor(int color) {
         this.color = color;
     }
@@ -84,15 +97,11 @@ public abstract class GameObject {
         sb.append(getLocation().toString());
         // Color
         sb.append(" color:[");
-        sb.append(ColorUtil.red(color));
-        sb.append(", ");
-        sb.append(ColorUtil.green(color));
-        sb.append(", ");
-        sb.append(ColorUtil.blue(color));
-        sb.append("] ");
+        sb.append(ColorUtil.red(color)).append(", ");
+        sb.append(ColorUtil.green(color)).append(", ");
+        sb.append(ColorUtil.blue(color)).append("] ");
         // Size
-        sb.append("size=");
-        sb.append(getSize());
+        sb.append("size=").append(getSize());
         return sb.toString();
     }
 
