@@ -1,42 +1,57 @@
-package com.mycompany.a1;
+package com.mycompany.a2;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
-
+import java.util.Observable;
+import java.util.Observer;
 import com.codename1.io.Log;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 
 /**
  * Class that holds a collection of game objects and other state variables.
  * 
  * @author Kyle Szombathy
  */
-public class GameWorld {
+public class GameWorld extends Observable {
+    // Class information
+    private static final String AUTHOR = "Kyle Szombathy";
+    private static final String COURSE_NAME = "CSC 133";
+    private static final int ASSIGNMENT_NUMBER = 2;
+    // final values
     private static final int ASTRONAUT_INITAL_SIZE = 4;
     private static final int ALIEN_INITIAL_SIZE = 3;
     private static final int ALIEN_SCORE_MODIFIER = -10;
     private static final int ASTRONAUT_SCORE_MODIFIER = 10;
     private static final int MAXIMUM_SCORE = ASTRONAUT_INITAL_SIZE * 10;
-
-    private ArrayList<GameObject> gameObjects;
+    // Map values
+    private int mapWidth, mapHeight;
+    // Collections and values
+    private GameObjectCollection gameObjects;
     private int score, astronautsRescued, aliensSnuckIn;
-    boolean exitFlag;
+    private boolean sound;
 
     // ============ Initialization Methods ============
+    public GameWorld(int mapWidth, int mapHeight) {
+        super();
+        this.mapWidth = mapWidth;
+        this.mapHeight = mapHeight;
+        init();
+    }
+    
     // Init game objects and parameters
     public void init() {
         initGameObjects();
         initGameParams();
+        updateObservers();
     }
 
     private void initGameObjects() {
-        gameObjects = new ArrayList<GameObject>();
+        gameObjects = new GameObjectCollection();
         initRescuers();
         initOpponents();
     }
 
     private void initRescuers() {
-        gameObjects.add(new Spaceship());
+        gameObjects.add(Spaceship.getSpaceship());
     }
 
     private void initOpponents() {
@@ -56,205 +71,114 @@ public class GameWorld {
 
     private void initGameParams() {
         score = 0;
-        exitFlag = false;
+        sound = true;
     }
 
     // ============ Getters for GameObjects ============
-    private Spaceship getFirstSpaceshipInGameObjects() {
-        for (int objIndex = 0; objIndex < gameObjects.size(); objIndex++) {
-            GameObject gameObject = gameObjects.get(objIndex);
-            if (isSpaceShip(gameObject)) {
-                return (Spaceship) gameObject;
-            }
-        }
-        return null;
+    
+    // public methods
+    public int getScore() {
+        return score;
     }
 
-    private void setFirstSpaceshipInGameObjects(Spaceship spaceship) {
-        for (int objIndex = 0; objIndex < gameObjects.size(); objIndex++) {
-            GameObject gameObject = gameObjects.get(objIndex);
-            if (isSpaceShip(gameObject)) {
-                gameObjects.set(objIndex, spaceship);
-                break;
-            }
-        }
+    public int getAstronautsRescued() {
+        return astronautsRescued;
     }
 
-    private int getNonCapturedAlienCount() {
-        int alienCount = 0;
-        for (int objIndex = 0; objIndex < gameObjects.size(); objIndex++) {
-            GameObject gameObject = gameObjects.get(objIndex);
-            if (isValidAlien(gameObject)) {
-                alienCount++;
-            }
-        }
-        return alienCount;
+    public int getAliensSnuckIn() {
+        return aliensSnuckIn;
     }
 
-    private int getNonCapturedAstronautCount() {
-        int astronautCount = 0;
-        for (int objIndex = 0; objIndex < gameObjects.size(); objIndex++) {
-            GameObject gameObject = gameObjects.get(objIndex);
-            if (isValidAstronaut(gameObject)) {
-                astronautCount++;
-            }
-        }
-        return astronautCount;
+    public boolean getSound() {
+        return sound;
+    }
+    
+    public String getSoundString() {
+        if (sound) return "ON";
+        else return "OFF";
+    }
+    
+    public int getNonCapturedAstronautCount() {
+        return gameObjects.getNonCapturedAstronautCount();
     }
 
-    private Alien getRandomNonCapturedAlien() {
-        Random rand = new Random();
-
-        if (getNonCapturedAlienCount() > 0) {
-            while (true) {
-                int randomIndex = rand.nextInt(gameObjects.size());
-                GameObject gameObject = gameObjects.get(randomIndex);
-                if (isValidAlien(gameObject)) {
-                    return (Alien) gameObject;
-                }
-            }
-        }
-        return null;
+    public int getNonCapturedAlienCount() {
+        return gameObjects.getNonCapturedAlienCount();
     }
+   
 
-    private Alien getRandomNonCapturedAlienAndDelete() {
-        Random rand = new Random();
-        GameObject gameObject;
-
-        if (getNonCapturedAlienCount() > 0) {
-            while (true) {
-                int randomIndex = rand.nextInt(gameObjects.size());
-                gameObject = gameObjects.get(randomIndex);
-                if (isValidAlien(gameObject)) {
-                    gameObjects.remove(randomIndex);
-                    return (Alien) gameObject;
-                }
-            }
-        }
-        return null;
-    }
-
-    private Astronaut getNonCapturedRandomAstronaut() {
-        Random rand = new Random();
-        GameObject gameObject;
-
-        if (getNonCapturedAstronautCount() > 0) {
-            while (true) {
-                int randomIndex = rand.nextInt(gameObjects.size());
-                gameObject = gameObjects.get(randomIndex);
-                if (isValidAstronaut(gameObject)) {
-                    return (Astronaut) gameObject;
-                }
-            }
-        }
-        return null;
-    }
-
-    private Astronaut getNonCapturedRandomAstronautAndDelete() {
-        Random rand = new Random();
-
-        if (getNonCapturedAlienCount() > 0) {
-            while (true) {
-                int randomIndex = rand.nextInt(gameObjects.size());
-                if (isValidAstronaut(gameObjects.get(randomIndex))) {
-                    return (Astronaut) gameObjects.remove(randomIndex);
-                }
-            }
-        }
-        return null;
-    }
-
-    // The following *Valid methods return true if the opponent is not captured
-    private boolean isValidAlien(GameObject gameObject) {
-        return isAlien(gameObject) && !((Opponent) gameObject).isCaptured();
-    }
-
-    private boolean isValidAstronaut(GameObject gameObject) {
-        return isAstronaut(gameObject) && !((Opponent) gameObject).isCaptured();
-    }
-
-    private boolean isValidOpponent(GameObject gameObject) {
-        return isOpponent(gameObject) && ((Opponent) gameObject).isCaptured();
-    }
-
-    // InstanceOf Methods
-    private boolean isAlien(GameObject gameObject) {
-        return gameObject instanceof Alien;
-    }
-
-    private boolean isAstronaut(GameObject gameObject) {
-        return gameObject instanceof Astronaut;
-    }
-
-    private boolean isSpaceShip(GameObject gameObject) {
-        return gameObject instanceof Spaceship;
-    }
-
-    private boolean isOpponent(GameObject gameObject) {
-        return gameObject instanceof Opponent;
-    }
-
-    // ============ Player Interactions ============
+    // ============ Keyboard Interactions ============
     /** Transfer the spaceship to a location of a randomly selected alien */
     public void moveSpaceshipToRandomAlien() {
-        Location randomAlienLocation = getRandomNonCapturedAlien().getLocation();
+        Location randomAlienLocation = gameObjects.getRandomNonCapturedAlien().getLocation();
         moveSpaceshipToLocation(randomAlienLocation);
         Log.p("Transfered to random alien.");
     }
 
     /** Transfer the spaceship to a location of a randomly selected astronaut */
     public void moveSpaceshipToRandomAstronaut() {
-        Location randomAstronautLocation = getNonCapturedRandomAstronaut().getLocation();
+        Location randomAstronautLocation = gameObjects.getNonCapturedRandomAstronaut().getLocation();
         moveSpaceshipToLocation(randomAstronautLocation);
         Log.p("Transfered to random astonaut.");
     }
 
     private void moveSpaceshipToLocation(Location location) {
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         if (spaceship != null)
             spaceship.jumpToLocation(location);
-        setFirstSpaceshipInGameObjects(spaceship);
+        gameObjects.setSpaceship(spaceship);
+        updateObservers();
     }
 
     /** Move the spaceship to the right. */
     public void moveShipRight() {
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         spaceship.moveRight();
+        updateObservers();
         Log.p("Moved ship to the right.");
     }
 
     /** Move the spaceship to the left. */
     public void moveShipLeft() {
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         spaceship.moveLeft();
+        updateObservers();
         Log.p("Moved ship to the left.");
     }
 
     /** Move the spaceship up. */
     public void moveShipUp() {
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         spaceship.moveUp();
+        updateObservers();
         Log.p("Moved ship upwards.");
     }
 
     /** Move the spaceship down. */
     public void moveShipDown() {
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         spaceship.moveDown();
+        updateObservers();
         Log.p("Moved ship downwards.");
     }
 
-    /** Expand the size of the spaceship door. */
+    /**
+     * Expand the size of the spaceship door.
+     */
     public void expandSpaceshipDoor() {
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         spaceship.expandDoor();
+        updateObservers();
         Log.p("Expanded door size.");
     }
 
-    /** Contract (decrease) the size of the spaceship door */
+    /**
+     * Contract (decrease) the size of the spaceship door
+     */
     public void contractSpaceshipDoor() {
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         spaceship.contractDoor();
+        updateObservers();
         Log.p("Contracted door size.");
     }
 
@@ -266,16 +190,18 @@ public class GameWorld {
     public void tick() {
         moveAllMoveableObjects();
         Log.p("Ticked game clock.");
+        printMap();
     }
 
     private void moveAllMoveableObjects() {
-        for (int gameObjNum = 0; gameObjNum < gameObjects.size(); gameObjNum++) {
-            GameObject gameObject = gameObjects.get(gameObjNum);
+        IIterator<GameObject> iterator = gameObjects.getIterator();
+        while(iterator.hasNext()) {
+            GameObject gameObject = iterator.next();
             if (gameObject instanceof IMoving) {
                 ((IMoving) gameObject).move();
-                gameObjects.set(gameObjNum, gameObject);
             }
         }
+        updateObservers();
     }
 
     /**
@@ -307,35 +233,35 @@ public class GameWorld {
     }
 
     private void captureOpponentsInDoorAndUpdateScore() {
-        for (int gameObjNum = 0; gameObjNum < gameObjects.size(); gameObjNum++) {
-            GameObject gameObject = gameObjects.get(gameObjNum);
-
-            if (isOpponentInDoor(gameObject)) {
+        IIterator<GameObject> iterator = gameObjects.getIterator();
+        while(iterator.hasNext()) {
+            GameObject gameObject = iterator.next();
+            
+            if (isValidOpponentInDoor(gameObject)) {
                 // Capture Opponent
                 Opponent opponent = (Opponent) gameObject;
                 opponent.setCaptured(true);
-                gameObjects.set(gameObjNum, opponent);
-
                 updateScore(opponent);
             }
         }
     }
 
-    private boolean isOpponentInDoor(GameObject opponent) {
-        return isOpponent(opponent) && isGameObjectInDoor(opponent);
+    private boolean isValidOpponentInDoor(GameObject opponent) {
+        return GameObjectCollection.isValidOpponent(opponent) 
+                && isGameObjectInDoor(opponent);
     }
 
     private boolean isGameObjectInDoor(GameObject gameObject) {
         Location gameObjectLocation = gameObject.getLocation();
-        Spaceship spaceship = getFirstSpaceshipInGameObjects();
+        Spaceship spaceship = gameObjects.getSpaceship();
         return spaceship.isLocationWithinBoundaries(gameObjectLocation);
     }
 
     private void updateScore(Opponent opponent) {
-        if (isAlien(opponent)) {
+        if (GameObjectCollection.isAlien(opponent)) {
             aliensSnuckIn++;
             addToScore(ALIEN_SCORE_MODIFIER);
-        } else if (isAstronaut(opponent)) {
+        } else if (GameObjectCollection.isAstronaut(opponent)) {
             astronautsRescued++;
             addToScore(calculateAstronautScore((Astronaut) opponent));
         }
@@ -347,6 +273,7 @@ public class GameWorld {
         if (score > MAXIMUM_SCORE) {
             score = MAXIMUM_SCORE;
         }
+        updateObservers();
     }
 
     // Calculate astronaut score based on astronauts health
@@ -367,8 +294,8 @@ public class GameWorld {
      * error message without producing a new alien.
      */
     public void collisionAlienAlien() {
-        if (getNonCapturedAlienCount() >= 2) {
-            spawnNewAlienNextToAlien(getRandomNonCapturedAlien());
+        if (gameObjects.getNonCapturedAlienCount() >= 2) {
+            spawnNewAlienNextToAlien(gameObjects.getRandomNonCapturedAlien());
         } else {
             Log.p("Error. 2 aliens must be present for a collision to occur.", Log.ERROR);
         }
@@ -377,6 +304,7 @@ public class GameWorld {
     private void spawnNewAlienNextToAlien(Alien alien) {
         Location nearbyLocation = alien.getLocation().getRandomLocationNearby(alien.getSize());
         gameObjects.add(new Alien(nearbyLocation));
+        updateObservers();
     }
 
     /**
@@ -395,7 +323,7 @@ public class GameWorld {
      * message instead.
      */
     public void collisionAlienAstronaut() {
-        if (getNonCapturedAlienCount() > 0) {
+        if (gameObjects.getNonCapturedAlienCount() > 0) {
             collideRandomAlienAndAstronaut();
             Log.p("Alien and Astronaut have collided.");
         } else {
@@ -404,10 +332,11 @@ public class GameWorld {
     }
 
     private void collideRandomAlienAndAstronaut() {
-        Astronaut randomAstronaut = getNonCapturedRandomAstronaut();
-        randomAstronaut = getNonCapturedRandomAstronautAndDelete();
+        Astronaut randomAstronaut = gameObjects.getNonCapturedRandomAstronaut();
+        randomAstronaut = gameObjects.removeNonCapturedRandomAstronaut();
         randomAstronaut.receiveDamage();
         gameObjects.add(randomAstronaut);
+        updateObservers();
     }
 
     /**
@@ -419,25 +348,15 @@ public class GameWorld {
     public void printScore() {
         StringBuilder sb = new StringBuilder();
         // 1) current score
-        sb.append("Score: ");
-        sb.append(score);
-        sb.append("\n");
+        sb.append("Score: ").append(score).append("\n");
         // 2) number of astronauts rescued
-        sb.append("Astronauts rescued: ");
-        sb.append(astronautsRescued);
-        sb.append("\n");
+        sb.append("Astronauts rescued: ").append(astronautsRescued).append("\n");
         // 3) number of aliens sneaked in to the spaceship
-        sb.append("Aliens snuck in: ");
-        sb.append(aliensSnuckIn);
-        sb.append("\n");
+        sb.append("Aliens snuck in: ").append(aliensSnuckIn).append("\n");
         // 4) number of astronauts left in the world
-        sb.append("Astronauts remaining: ");
-        sb.append(getNonCapturedAstronautCount());
-        sb.append("\n");
+        sb.append("Astronauts remaining: ").append(gameObjects.getNonCapturedAstronautCount()).append("\n");
         // 5) number of aliens left in the world.
-        sb.append("Aliens remaining: ");
-        sb.append(getNonCapturedAlienCount());
-        sb.append("\n");
+        sb.append("Aliens remaining: ").append(gameObjects.getNonCapturedAlienCount()).append("\n");
 
         Log.p(sb.toString());
     }
@@ -445,19 +364,17 @@ public class GameWorld {
     /** Print a “map” showing the current world state */
     public void printMap() {
         StringBuilder sb = new StringBuilder();
-
-        for (int objIndex = 0; objIndex < gameObjects.size(); objIndex++) {
-            GameObject gameObject = gameObjects.get(objIndex);
-            if (isValidOpponent(gameObject)) {
+        IIterator<GameObject> iterator = gameObjects.getIterator();
+        while(iterator.hasNext()) {
+            GameObject gameObject = iterator.next();
+            if (GameObjectCollection.isOpponentCaptured(gameObject)) {
                 // Do not list if opponent is captured
                 continue;
             }
-            sb.append(gameObject.getName());
-            sb.append(": ");
+            sb.append(gameObject.getName()).append(": ");
             sb.append(gameObject.toString());
             sb.append("\n");
         }
-
         Log.p(sb.toString());
     }
 
@@ -468,7 +385,78 @@ public class GameWorld {
      * @param firstChar
      */
     public void exitGame() {
-        System.exit(0);
+        Boolean bOk = Dialog.show("Confirm quit", "Are you sure you want to quit?", "Ok", "Cancel");
+        if (bOk) {
+            Display.getInstance().exitApplication();
+        }
     }
 
+    // ============ Side Menu Interactions ============
+
+    /** Toggle sound on or off */
+    public void turnSoundOnOff() {
+        setSound(!getSound());
+    }
+
+    /**
+     * Set the value of sound
+     * @param value Boolean value you want sound to be
+     */
+    private void setSound(boolean value) {
+        sound = value;
+        Log.p("Set Sound to " + value);
+        updateObservers();
+    }
+
+    /** Displays a dialog box giving name, course name, and version number */
+    public void displayAboutInfo() {
+        StringBuilder aboutMsg = new StringBuilder();
+        aboutMsg.append("Name: ").append(AUTHOR).append("\n");
+        aboutMsg.append("Course Name").append(COURSE_NAME).append("\n");
+        aboutMsg.append("Assignment #: ").append(ASSIGNMENT_NUMBER);
+        Dialog.show("About", aboutMsg.toString(), "Ok", null);
+    }
+
+    /** Display a list of keys available to the user */
+    public void displayHelpInfo() {
+        StringBuilder helpInfo = new StringBuilder("Keybinds availble to the user:\n");
+        helpInfo.append(createKeyBindHelpText("e", "Expand the door")).append("\n");
+        helpInfo.append(createKeyBindHelpText("c", "Contract the door")).append("\n");
+        helpInfo.append(createKeyBindHelpText("s", "open the door and update Score")).append("\n");
+        helpInfo.append(createKeyBindHelpText("r", "move spaceship to the Right")).append("\n");
+        helpInfo.append(createKeyBindHelpText("l", "move spaceship to the Left")).append("\n");
+        helpInfo.append(createKeyBindHelpText("u", "move the spaceship Up")).append("\n");
+        helpInfo.append(createKeyBindHelpText("d", "move the spaceship Down")).append("\n");
+        helpInfo.append(createKeyBindHelpText("o", "move the spaceship to an astrOnaught location")).append("\n");
+        helpInfo.append(createKeyBindHelpText("a", "move the spaceship to an Alien location")).append("\n");
+        helpInfo.append(createKeyBindHelpText("w", "create a neW alien")).append("\n");
+        helpInfo.append(createKeyBindHelpText("f", "an alien-astronaut Fight")).append("\n");
+        helpInfo.append(createKeyBindHelpText("t", "clock Ticks")).append("\n");
+        helpInfo.append(createKeyBindHelpText("x", "eXit game")).append("\n");
+        Dialog.show("Help", helpInfo.toString(), "Ok", null);
+    }
+
+    /**
+     * Create a message in the form of "'key' - message" given a keyboard key
+     * and the message associated with the command
+     * @param key from the keyboard
+     * @param message describing the action the key takes
+     * @return a message in the form of "'key' - message"
+     */
+    private String createKeyBindHelpText(String key, String message) {
+        return "'" + key + "' - " + message;
+    }
+    
+    // ============ Observable methods ============
+    
+    @Override
+    public void addObserver(Observer observer) {
+        super.addObserver(observer);
+        updateObservers();
+    }
+    
+    private void updateObservers() {
+        setChanged();
+        notifyObservers();
+    }
 }

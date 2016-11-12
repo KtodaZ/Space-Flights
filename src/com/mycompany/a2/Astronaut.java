@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.mycompany.a1;
+package com.mycompany.a2;
+
+import java.io.UnsupportedEncodingException;
 
 import com.codename1.charts.util.ColorUtil;
 

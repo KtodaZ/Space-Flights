@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_3WnfoJpgEeay_76zdePqVg" name="RootElement">
+    <packagedElement xmi:type="uml:Package" xmi:id="_64E0MJpgEeay_76zdePqVg" name="A2Prj">
+      <packagedElement xmi:type="uml:Package" xmi:id="_66ZIYJpgEeay_76zdePqVg" name="com">
+        <packagedElement xmi:type="uml:Package" xmi:id="_66ZIYZpgEeay_76zdePqVg" name="mycompany">
+          <packagedElement xmi:type="uml:Package" xmi:id="_66ZIYppgEeay_76zdePqVg" name="a2">
+            <packagedElement xmi:type="uml:Class" xmi:id="_66a9kJpgEeay_76zdePqVg" name="GameObjectCollection" visibility="public">
+              <generalization xmi:type="uml:Generalization" xmi:id="_69TScJpgEeay_76zdePqVg" general="_66cLsppgEeay_76zdePqVg"/>
+              <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_69ZZEJpgEeay_76zdePqVg" name="GameObjectCollection implements ICollection" client="_66a9kJpgEeay_76zdePqVg" supplier="_69T5gJpgEeay_76zdePqVg" contract="_69T5gJpgEeay_76zdePqVg"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_69opoJpgEeay_76zdePqVg" name="getIterator" specification="_69anMJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return new Iterator(this);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_698ysJpgEeay_76zdePqVg" name="add" specification="_69uwQJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return super.add(object);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_69-n4JpgEeay_76zdePqVg" name="clear" specification="_69-A0JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    super.clear();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-BEIJpgEeay_76zdePqVg" name="isEmpty" specification="_69_O8JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return super.isEmpty();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-C5UJpgEeay_76zdePqVg" name="size" specification="_6-BrMJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return super.size();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-JnAJpgEeay_76zdePqVg" name="iterator" specification="_6-EHcJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-QUsJpgEeay_76zdePqVg" name="listIterator" specification="_6-KOEJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-UmIJpgEeay_76zdePqVg" name="listIterator" specification="_6-Ri0JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-XCYJpgEeay_76zdePqVg" name="clone" specification="_6-V0QJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    GameObjectCollection newList = new GameObjectCollection();&#xD;
+    IIterator&lt;GameObject> iterator = this.getIterator();&#xD;
+    while (iterator.hasNext()) {&#xD;
+        newList.add(iterator.next());&#xD;
+    }&#xD;
+    return newList;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-aFsJpgEeay_76zdePqVg" name="getNonCapturedAstronautCount" specification="_6-YQgJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    int astronautCount = 0;&#xD;
+    IIterator&lt;GameObject> iterator = this.getIterator();&#xD;
+    while (iterator.hasNext()) {&#xD;
+        GameObject gameObject = iterator.next();&#xD;
+        if (isValidAstronaut(gameObject)) {&#xD;
+            astronautCount++;&#xD;
+        }&#xD;
+    }&#xD;
+    return astronautCount;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-dJAJpgEeay_76zdePqVg" name="getNonCapturedAlienCount" specification="_6-bT0JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    int alienCount = 0;&#xD;
+    IIterator&lt;GameObject> iterator = this.getIterator();&#xD;
+    while (iterator.hasNext()) {&#xD;
+        GameObject gameObject = iterator.next();&#xD;
+        if (isValidAlien(gameObject)) {&#xD;
+            alienCount++;&#xD;
+        }&#xD;
+    }&#xD;
+    return alienCount;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-iokJpgEeay_76zdePqVg" name="getSpaceship" specification="_6-eXIJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return (Spaceship) this.get(getSpaceshipIndex());&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-lr4JpgEeay_76zdePqVg" name="setSpaceship" specification="_6-kdwJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.set(getSpaceshipIndex(), spaceship);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-nhEJpgEeay_76zdePqVg" name="getSpaceshipIndex" specification="_6-mS8JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    IIterator&lt;GameObject> iterator = this.getIterator();&#xD;
+    int count = -1;&#xD;
+    while (iterator.hasNext()) {&#xD;
+        GameObject gameObject = iterator.next();&#xD;
+        count++;&#xD;
+        if (isSpaceShip(gameObject))&#xD;
+            break;&#xD;
+    }&#xD;
+    return count;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-tAoJpgEeay_76zdePqVg" name="getRandomNonCapturedAlien" specification="_6-ovMJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (getNonCapturedAlienCount() > 0) {&#xD;
+        while (true) {&#xD;
+            int randIndex = RandomUtils.getRandomInt(0, this.size() - 1);&#xD;
+            if (isValidAlien(this.get(randIndex)))&#xD;
+                return (Alien) this.get(randIndex);&#xD;
+        }&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-u10JpgEeay_76zdePqVg" name="removeRandomNonCapturedAlien" specification="_6-tnsJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (getNonCapturedAlienCount() > 0) {&#xD;
+        while (true) {&#xD;
+            int randIndex = RandomUtils.getRandomInt(0, this.size() - 1);&#xD;
+            if (isValidAlien(this.get(randIndex)))&#xD;
+                return (Alien) this.remove(randIndex);&#xD;
+        }&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-zHQJpgEeay_76zdePqVg" name="getNonCapturedRandomAstronaut" specification="_6-vc4JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (getNonCapturedAstronautCount() > 0) {&#xD;
+        while (true) {&#xD;
+            int randIndex = RandomUtils.getRandomInt(0, this.size() - 1);&#xD;
+            if (isValidAstronaut(this.get(randIndex)))&#xD;
+                return (Astronaut) this.get(randIndex);&#xD;
+        }&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-08cJpgEeay_76zdePqVg" name="removeNonCapturedRandomAstronaut" specification="_6-zuUJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    if (getNonCapturedAstronautCount() > 0) {&#xD;
+        while (true) {&#xD;
+            int randIndex = RandomUtils.getRandomInt(0, this.size() - 1);&#xD;
+            if (isValidAstronaut(this.get(randIndex)))&#xD;
+                return (Astronaut) this.remove(randIndex);&#xD;
+        }&#xD;
+    }&#xD;
+    return null;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-3_wJpgEeay_76zdePqVg" name="isValidAlien" specification="_6-2KkJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return isAlien(gameObject) &amp;&amp; !((Opponent) gameObject).isCaptured();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6-7DEJpgEeay_76zdePqVg" name="isValidAstronaut" specification="_6-5N4JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return isAstronaut(gameObject) &amp;&amp; !((Opponent) gameObject).isCaptured();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6--GYJpgEeay_76zdePqVg" name="isValidOpponent" specification="_6-8RMJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return isOpponent(gameObject) &amp;&amp; !((Opponent) gameObject).isCaptured();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_BJsJpgEeay_76zdePqVg" name="isOpponentCaptured" specification="_6--tcJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return isOpponent(gameObject) &amp;&amp; ((Opponent) gameObject).isCaptured();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_ENAZpgEeay_76zdePqVg" name="isAlien" specification="_6_CX0JpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return gameObject instanceof Alien;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_HQUJpgEeay_76zdePqVg" name="isAstronaut" specification="_6_FbIJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return gameObject instanceof Astronaut;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_KToJpgEeay_76zdePqVg" name="isSpaceShip" specification="_6_IecJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return gameObject instanceof Spaceship;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_Mv4JpgEeay_76zdePqVg" name="isOpponent" specification="_6_K6sJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return gameObject instanceof Opponent;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_69anMJpgEeay_76zdePqVg" name="getIterator" visibility="public" method="_69opoJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_69ffsJpgEeay_76zdePqVg" type="_69b1UJpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_69uwQJpgEeay_76zdePqVg" name="add" visibility="public" method="_698ysJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6969gJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_698LoJpgEeay_76zdePqVg" name="object" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_69-A0JpgEeay_76zdePqVg" name="clear" visibility="public" method="_69-n4JpgEeay_76zdePqVg"/>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_69_O8JpgEeay_76zdePqVg" name="isEmpty" visibility="public" method="_6-BEIJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_69_2AJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-BrMJpgEeay_76zdePqVg" name="size" visibility="public" method="_6-C5UJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-CSQJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-EHcJpgEeay_76zdePqVg" name="iterator" visibility="public" method="_6-JnAJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-IY4JpgEeay_76zdePqVg" type="_6-EugJpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-KOEJpgEeay_76zdePqVg" name="listIterator" visibility="public" method="_6-QUsJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-PGkJpgEeay_76zdePqVg" type="_6-LcMJpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-Ri0JpgEeay_76zdePqVg" name="listIterator" visibility="public" method="_6-UmIJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-Sw8JpgEeay_76zdePqVg" type="_6-LcMJpgEeay_76zdePqVg" direction="return"/>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-T_EJpgEeay_76zdePqVg" name="location">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-V0QJpgEeay_76zdePqVg" name="clone" visibility="public" method="_6-XCYJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-WbUJpgEeay_76zdePqVg" type="_66a9kJpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-YQgJpgEeay_76zdePqVg" name="getNonCapturedAstronautCount" visibility="public" method="_6-aFsJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-Y3kJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-bT0JpgEeay_76zdePqVg" name="getNonCapturedAlienCount" visibility="public" method="_6-dJAJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-ch8JpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-eXIJpgEeay_76zdePqVg" name="getSpaceship" visibility="public" method="_6-iokJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-iBgJpgEeay_76zdePqVg" type="_6-e-MJpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-kdwJpgEeay_76zdePqVg" name="setSpaceship" visibility="public" method="_6-lr4JpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-lE0JpgEeay_76zdePqVg" name="spaceship" type="_6-e-MJpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-mS8JpgEeay_76zdePqVg" name="getSpaceshipIndex" visibility="public" method="_6-nhEJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-m6AJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-ovMJpgEeay_76zdePqVg" name="getRandomNonCapturedAlien" visibility="public" method="_6-tAoJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-sZkJpgEeay_76zdePqVg" type="_6-pWQJpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-tnsJpgEeay_76zdePqVg" name="removeRandomNonCapturedAlien" visibility="public" method="_6-u10JpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-uOwJpgEeay_76zdePqVg" type="_6-pWQJpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-vc4JpgEeay_76zdePqVg" name="getNonCapturedRandomAstronaut" visibility="public" method="_6-zHQJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-ygMJpgEeay_76zdePqVg" type="_6-wD8JpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-zuUJpgEeay_76zdePqVg" name="removeNonCapturedRandomAstronaut" visibility="public" method="_6-08cJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-0VYJpgEeay_76zdePqVg" type="_6-wD8JpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-2KkJpgEeay_76zdePqVg" name="isValidAlien" visibility="public" isStatic="true" method="_6-3_wJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-2xoJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-3YsJpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-5N4JpgEeay_76zdePqVg" name="isValidAstronaut" visibility="public" isStatic="true" method="_6-7DEJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-508JpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-6cAJpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6-8RMJpgEeay_76zdePqVg" name="isValidOpponent" visibility="public" isStatic="true" method="_6--GYJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-84QJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-9fUJpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6--tcJpgEeay_76zdePqVg" name="isOpponentCaptured" visibility="public" isStatic="true" method="_6_BJsJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6-_UgJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_AioJpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_CX0JpgEeay_76zdePqVg" name="isAlien" visibility="public" isStatic="true" method="_6_ENAZpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_C-4JpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_ENAJpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_FbIJpgEeay_76zdePqVg" name="isAstronaut" visibility="public" isStatic="true" method="_6_HQUJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_GCMJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_GpQJpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_IecJpgEeay_76zdePqVg" name="isSpaceShip" visibility="public" isStatic="true" method="_6_KToJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_JFgJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_JskJpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_K6sJpgEeay_76zdePqVg" name="isOpponent" visibility="public" isStatic="true" method="_6_Mv4JpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_LhwJpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_MI0JpgEeay_76zdePqVg" name="gameObject" type="_69qe0JpgEeay_76zdePqVg"/>
+              </ownedOperation>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Interface" xmi:id="_69T5gJpgEeay_76zdePqVg" name="ICollection"/>
+            <packagedElement xmi:type="uml:Interface" xmi:id="_69b1UJpgEeay_76zdePqVg" name="IIterator"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_69qe0JpgEeay_76zdePqVg" name="GameObject"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_6-e-MJpgEeay_76zdePqVg" name="Spaceship"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_6-pWQJpgEeay_76zdePqVg" name="Alien"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_6-wD8JpgEeay_76zdePqVg" name="Astronaut"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_6_NW8JpgEeay_76zdePqVg" name="Iterator">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_6_OlEJpgEeay_76zdePqVg" name="gameObjectList" visibility="private" type="_69qe0JpgEeay_76zdePqVg" isUnique="false">
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6_PzMJpgEeay_76zdePqVg"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6_QaQJpgEeay_76zdePqVg" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_6_RBUJpgEeay_76zdePqVg" name="curIndex" visibility="private" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+              </ownedAttribute>
+              <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_6_N-AJpgEeay_76zdePqVg" name="Iterator implements IIterator" client="_6_NW8JpgEeay_76zdePqVg" supplier="_69b1UJpgEeay_76zdePqVg" contract="_69b1UJpgEeay_76zdePqVg"/>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_XH8ZpgEeay_76zdePqVg" name="Iterator" specification="_6_SPcJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    this.gameObjectList = gameObjectList;&#xD;
+    curIndex = 0;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_Y9IJpgEeay_76zdePqVg" name="hasNext" specification="_6_YWEJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    return curIndex &lt; gameObjectList.size();&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_ayUJpgEeay_76zdePqVg" name="next" specification="_6_ZkMJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    GameObject returnObject = gameObjectList.get(curIndex);&#xD;
+    curIndex++;&#xD;
+    return returnObject;&#xD;
+</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_6_cAcZpgEeay_76zdePqVg" name="remove" specification="_6_cAcJpgEeay_76zdePqVg">
+                <language>JAVA</language>
+                <body>&#xD;
+    gameObjectList.remove(curIndex);&#xD;
+</body>
+              </ownedBehavior>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_SPcJpgEeay_76zdePqVg" name="Iterator" visibility="public" method="_6_XH8ZpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_V50JpgEeay_76zdePqVg" name="gameObjectList" type="_69qe0JpgEeay_76zdePqVg">
+                  <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6_Wg4JpgEeay_76zdePqVg"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6_XH8JpgEeay_76zdePqVg" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_YWEJpgEeay_76zdePqVg" name="hasNext" visibility="public" method="_6_Y9IJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_YWEZpgEeay_76zdePqVg" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_ZkMJpgEeay_76zdePqVg" name="next" visibility="public" method="_6_ayUJpgEeay_76zdePqVg">
+                <ownedParameter xmi:type="uml:Parameter" xmi:id="_6_aLQJpgEeay_76zdePqVg" type="_69qe0JpgEeay_76zdePqVg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:type="uml:Operation" xmi:id="_6_cAcJpgEeay_76zdePqVg" name="remove" visibility="public" method="_6_cAcZpgEeay_76zdePqVg"/>
+            </packagedElement>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_66bkoJpgEeay_76zdePqVg" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_66cLsJpgEeay_76zdePqVg" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_66cLsZpgEeay_76zdePqVg" name="util">
+          <packagedElement xmi:type="uml:Class" xmi:id="_66cLsppgEeay_76zdePqVg" name="ArrayList"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_6-EugJpgEeay_76zdePqVg" name="Iterator"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_6-LcMJpgEeay_76zdePqVg" name="ListIterator"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_65nsUJpgEeay_76zdePqVg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_65oTYJpgEeay_76zdePqVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_652V0JpgEeay_76zdePqVg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_652V0ZpgEeay_76zdePqVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_66AG0JpgEeay_76zdePqVg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_66AG0ZpgEeay_76zdePqVg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <PapyrusJava:External xmi:id="_69SrYJpgEeay_76zdePqVg" name="java.util.ArrayList" base_Classifier="_66cLsppgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_69WVwJpgEeay_76zdePqVg" name="ICollection" base_Classifier="_69T5gJpgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_69eRkJpgEeay_76zdePqVg" name="IIterator" base_Classifier="_69b1UJpgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_69tiIJpgEeay_76zdePqVg" name="GameObject" base_Classifier="_69qe0JpgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_6-Hx0JpgEeay_76zdePqVg" name="java.util.Iterator" base_Classifier="_6-EugJpgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_6-OfgJpgEeay_76zdePqVg" name="java.util.ListIterator" base_Classifier="_6-LcMJpgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_6-hacJpgEeay_76zdePqVg" name="Spaceship" base_Classifier="_6-e-MJpgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_6-rygJpgEeay_76zdePqVg" name="Alien" base_Classifier="_6-pWQJpgEeay_76zdePqVg"/>
+  <PapyrusJava:External xmi:id="_6-x5IJpgEeay_76zdePqVg" name="Astronaut" base_Classifier="_6-wD8JpgEeay_76zdePqVg"/>
+  <standard:Create xmi:id="_6_UrsJpgEeay_76zdePqVg" base_BehavioralFeature="_6_SPcJpgEeay_76zdePqVg"/>
+</xmi:XMI>

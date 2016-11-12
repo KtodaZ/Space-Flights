@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mycompany.a1;
+package com.mycompany.a2;
 
 /**
  * For objects that move
